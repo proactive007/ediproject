@@ -1,5 +1,6 @@
 <?php
-class dbConnection  
+namespace config;
+class db  
 	{
 	    
 	    var $host = "localhost";
@@ -31,7 +32,4 @@ class dbConnection
 		    }
 
 	}
-
-	echo $path = dirname(__FILE__);
-	//define("LMS_PATH", $path);
 ?>
