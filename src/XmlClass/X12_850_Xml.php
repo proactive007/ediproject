@@ -3,7 +3,7 @@ namespace src\XmlClass;
 
 use config\db as connection;
 
-class purchaseOrderXml extends connection
+class X12_850_Xml extends connection
 	{
 		
        /**
@@ -312,7 +312,7 @@ class purchaseOrderXml extends connection
 
 		   		$xmlText = $startTag.$interchangeControlHeader.$gsSegment.$transactionSegment.$geSegment.$ieaSegment.$closeTag;
                 
-                $dir = "XML/EDI_".date('dmY');
+	            $dir = XML_FILE_PATH."EDI_850_".time();
 		 	 	$filename = $dir.".xml";
 		 	 	$myFile = $filename;
 				$fh = fopen($myFile, 'w') or die("can't open file");
