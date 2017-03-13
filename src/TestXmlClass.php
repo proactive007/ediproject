@@ -7,6 +7,8 @@ $xml_array = unserialize(serialize(json_decode(json_encode((array) $xml), 1)));
 //## Start Code For Transaction Loop
 $TransactionData = $xml_array["FunctionGroup"]["Transaction"];
 
+
+
 ## Total Number Of Transaction 
 $totalNumberOfTransaction = sizeof($TransactionData);
 

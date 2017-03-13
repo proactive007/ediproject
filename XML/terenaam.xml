@@ -1,0 +1,175 @@
+<?xml version="1.0"?>
+<Interchange segment-terminator="~" element-separator="*" sub-element-separator="/">
+  <ISA>
+    <!--Author Information Qualifier-->
+    <ISA01>00<!--No Authorization Information Present--></ISA01>
+    <!--Author Information-->
+    <ISA02>@@@@@@@@@@</ISA02>
+    <!--Security Information Qualifer-->
+    <ISA03>00<!--No Security Information Present--></ISA03>
+    <!--Security Information-->
+    <ISA04>@@@@@@@@@@</ISA04>
+    <!--Interchange ID Qualifier-->
+    <ISA05>ZZ<!--Mutually Defined--></ISA05>
+    <!--Interchange Sender ID-->
+    <ISA06>999TEST        </ISA06>
+    <!--Interchange ID Qualifier-->
+    <ISA07>ZZ<!--Mutually Defined--></ISA07>
+    <!--Interchange Receiver ID-->
+    <ISA08>ORGILL         </ISA08>
+    <!--Interchange Date-->
+    <ISA09>121101</ISA09>
+    <!--Interchange Time-->
+    <ISA10>1315</ISA10>
+    <!--Inter Control Standards Identifier-->
+    <ISA11>U<!--U.S. EDI Community of ASC X12, TDCC, and UCS--></ISA11>
+    <!--Inter Control Version Number-->
+    <ISA12>00401</ISA12>
+    <!--Inter Control Number-->
+    <ISA13>000001208</ISA13>
+    <!--Acknowlegment Requested-->
+    <ISA14>0<!--No Acknowledgment Requested--></ISA14>
+    <!--Usage Indicator-->
+    <ISA15>P<!--Production Data--></ISA15>
+    <!--Component Element Separator-->
+    <ISA16>
+      <ISA1601 />
+      <ISA1602 />
+    </ISA16>
+  </ISA>
+  <FunctionGroup>
+    <GS>
+      <!--Functional Identifier Code-->
+      <GS01>PO</GS01>
+      <!--Application Sender's Code-->
+      <GS02>999TEST</GS02>
+      <!--Application Receiver's Code-->
+      <GS03>ORGILL</GS03>
+      <!--Date-->
+      <GS04>20121101</GS04>
+      <!--Time-->
+      <GS05>1315</GS05>
+      <!--Group Control Number-->
+      <GS06>1208</GS06>
+      <!--Responsible Agency Code-->
+      <GS07>X<!--Accredited Standards Committee X12--></GS07>
+      <!--Version/Release/Industry Identifier Code-->
+      <GS08>004010</GS08>
+    </GS>
+    <Transaction ControlNumber="657977">
+      <ST>
+        <!--Transaction Set Identifier Code-->
+        <ST01>850</ST01>
+        <!--Transaction Set Control Number-->
+        <ST02>657977</ST02>
+      </ST>
+      <BEG>
+        <BEG01>00</BEG01>
+        <BEG02>DS</BEG02>
+        <BEG03>20121101-60929</BEG03>
+        <BEG04 />
+        <BEG05>20121101</BEG05>
+      </BEG>
+      <REF>
+        <!--Reference Identification Qualifier-->
+        <REF01>PD</REF01>
+        <!--Reference Identification-->
+        <REF02>PD</REF02>
+      </REF>
+      <FOB>
+        <FOB01>DE</FOB01>
+        <FOB02 />
+        <FOB03 />
+        <FOB04 />
+        <FOB05>FOB</FOB05>
+        <FOB06>AP</FOB06>
+      </FOB>
+      <ITD>
+        <ITD01>ZZ</ITD01>
+      </ITD>
+      <DTM>
+        <!--Data/Time Qualifier-->
+        <DTM01>036</DTM01>
+        <!--Date-->
+        <DTM02>20121101</DTM02>
+      </DTM>
+      <TD5>
+        <TD501 />
+        <TD502>2</TD502>
+        <TD503>UPSS</TD503>
+        <TD504 />
+        <TD505 />
+        <TD506 />
+        <TD507 />
+        <TD508 />
+        <TD509 />
+        <TD510 />
+        <TD511 />
+        <TD512>3D</TD512>
+      </TD5>
+      <Loop LoopId="N1" Name="Name">
+        <N1>
+          <!--Entity Identifier Code-->
+          <N101>ST</N101>
+          <!--Name-->
+          <N102>Jim Duhamel</N102>
+          <!--Identification Code Qualifier-->
+          <N103>92<!--Assigned by Buyer or Buyer's Agent--></N103>
+          <!--Identification Code-->
+          <N104>004</N104>
+        </N1>
+        <N3>
+          <!--Address Information-->
+          <N301>176 South St (EMC)</N301>
+          <!--Address Information-->
+          <N302>A1-O749</N302>
+        </N3>
+        <N4>
+          <!--City Name-->
+          <N401>ANY CITY</N401>
+          <!--State or Provice Code-->
+          <N402>MA</N402>
+          <!--Postal Code-->
+          <N403>11748-1130</N403>
+          <!--Country Code-->
+          <N404>US</N404>
+        </N4>
+      </Loop>
+      <Loop LoopId="PO1" Name="Baseline Item Data">
+        <PO1>
+          <PO101 />
+          <PO102>1</PO102>
+          <PO103>EA</PO103>
+          <PO104>0</PO104>
+          <PO105 />
+          <PO106>VP</PO106>
+          <PO107>6350268</PO107>
+          <PO108>BP</PO108>
+          <PO109>856071649243042</PO109>
+        </PO1>
+        <IT8>
+          <IT801 />
+          <IT802>B0</IT802>
+        </IT8>
+      </Loop>
+      <SE>
+        <!--Number of Included Segments-->
+        <SE01>13</SE01>
+        <!--Transaction Set Control Number-->
+        <SE02>657977</SE02>
+      </SE>
+    </Transaction>
+    <GE>
+      <!--Number of Transaction Sets Included-->
+      <GE01>7</GE01>
+      <!--Group Control Number-->
+      <GE02>1208</GE02>
+    </GE>
+  </FunctionGroup>
+  <IEA>
+    <!--Number of Included Functional Groups-->
+    <IEA01>1</IEA01>
+    <!--Interchange Control Number-->
+    <IEA02>000001208</IEA02>
+  </IEA>
+</Interchange>
