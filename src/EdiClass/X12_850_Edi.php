@@ -5,6 +5,7 @@ use config\db as connection;
 class X12_850_Edi extends connection 
 	{
 	   
+	   private $_endofline = '';
 	   public function __construct() 
 		   {
 		   	 $conn = $this->connect();
@@ -79,7 +80,10 @@ class X12_850_Edi extends connection
        **/
 	   public function isaSegmentEDI($recArray,$X12__850__File,$segmentTerminator,$elementSeparator,$subEleSep) 
 		   {    
-		   	    
+		   		if(isset($recArray["comment"])) {
+		   		   	$this->_endofline = PHP_EOL;
+		   		}			
+
 		   		$ISA01__AuthorInfoQual = str_replace('@',' ',$recArray["ISA01"]);
 				$ISA02__AuthorInformation = str_replace('@',' ',$recArray["ISA02"]);
 				$ISA03__SecurityInfoQual = str_replace('@',' ',$recArray["ISA03"]);
@@ -114,7 +118,7 @@ class X12_850_Edi extends connection
 						.$ISA14__AckRequested.$elementSeparator
 						.$ISA15__UsageIndicator.$elementSeparator
 						.$ISA16__ComponentElementSeperator
-						.$segmentTerminator.PHP_EOL);
+						.$segmentTerminator.$this->_endofline);
 		   }    
 
 	   
@@ -126,7 +130,9 @@ class X12_850_Edi extends connection
 	   **/ 	   
 	   public function gsSegmentEDI($recArray,$X12__850__File,$segmentTerminator,$elementSeparator) 
 		   {
-
+		   		if(isset($recArray["comment"])) {
+		   		   	$this->_endofline = PHP_EOL;
+		   		}	
 
 		   		$GS01__FunctionalGroupHeader=str_replace('@',' ',$recArray["GS01"]);
 				$GS02__ApplicationSendersCode=str_replace('@',' ',$recArray["GS02"]);
@@ -145,7 +151,7 @@ class X12_850_Edi extends connection
 						$GS05__GroupTime.$elementSeparator.
 						$GS06__GroupControlNumber.$elementSeparator.
 						$GS07__ResponsibleAgencyCode.$elementSeparator.
-						$GS08__VersionRelease.$segmentTerminator.PHP_EOL);
+						$GS08__VersionRelease.$segmentTerminator.$this->_endofline);
 		   }
 
 	   
@@ -160,7 +166,7 @@ class X12_850_Edi extends connection
 	public function transactionSegmentEDI($recArray,$X12__850__File,$segmentTerminator,$elementSeparator) 
 		{
 
-			//## Start Code For Transaction Loop
+		    //## Start Code For Transaction Loop
 			$TransactionData = $recArray;
 			## Total Number Of Transaction 
 			$totalNumberOfTransaction = sizeof($TransactionData);
@@ -193,8 +199,7 @@ class X12_850_Edi extends connection
 			   foreach($TransactionData as $TD) :
 						
 				foreach($TransactionData[$t] as $parentKey=>$parentVal):
-
-				  
+					
 					 if($parentKey!="@attributes") //Discard @attributes Field
 				        {  
 				        
@@ -203,7 +208,7 @@ class X12_850_Edi extends connection
 				          
 				      	 foreach($parentVal as $childKey=>$childVal) 
 				      	  {
-				      	  	  
+				      	  	   
 						       $asterik = ($start < $parentValCount-1)?'*':'';   
 
 
@@ -249,7 +254,7 @@ class X12_850_Edi extends connection
 																		           	{
 
 																		           	  if(!is_array($subsubChild)) {	
-																		           	   $ediText .= $subsubChild.$asterik;
+																		           	   $ediText .= str_replace('@',' ',$subsubChild).$asterik;
 																		           	  }
 																		           	}    
 								           									}
@@ -275,16 +280,21 @@ class X12_850_Edi extends connection
 									      	}    
 						           	    else 
 							           	    {
-							           	      $ediText .= $childVal.$asterik;	
+							           	      $ediText .= str_replace('@',' ',$childVal).$asterik;	
 							           	    }
 						           		
 						           } 
 				           
 				           
 				           $start++;
+				           
+				           if($childKey=='comment' && $childKey!='SE') {
+				           	 $this->_endofline = PHP_EOL;
+				           }
+
 				           if($start==$parentValCount && $parentKey!="Loop")
 					           {
-					           		$ediText .= $tild.PHP_EOL;	
+					           		$ediText .= $tild.$this->_endofline;	
 					           }
 
 				           
@@ -307,6 +317,12 @@ class X12_850_Edi extends connection
 	   **/ 
 	   public function geSegmentEDI($recArray,$X12__850__File,$segmentTerminator,$elementSeparator) 
 		   {
+             
+              if(isset($recArray["comment"])) {
+		   		   	$this->_endofline = PHP_EOL;
+		   	  }	else {
+		   	  	    $this->_endofline = '';
+		   	  }
 
 		      $GE01__NumberofTransactionSetsIncluded = str_replace('@',' ',$recArray["GE01"]);
 		      $GE02__GroupControlNumber = str_replace('@',' ',$recArray["GE02"]);
@@ -314,7 +330,7 @@ class X12_850_Edi extends connection
 		      fwrite($X12__850__File, "GE".$elementSeparator.
 						$GE01__NumberofTransactionSetsIncluded.$elementSeparator.
 						$GE02__GroupControlNumber.
-						$segmentTerminator.PHP_EOL);
+						$segmentTerminator.$this->_endofline);
 		   }	
 
 
@@ -326,17 +342,16 @@ class X12_850_Edi extends connection
 	   **/ 
 	   public function ieaSegmentEDI($recArray,$X12__850__File,$segmentTerminator,$elementSeparator) 
 		   {
-
+		   	 
+		     
 		      $IEA01__NumberofIncludedFunctionalGroups = str_replace('@',' ',$recArray["IEA01"]);
 			  $IEA02__InterchangeControlNumber =  str_replace('@',' ',$recArray["IEA02"]);
 			  
 			  fwrite($X12__850__File, "IEA".$elementSeparator.
 						$IEA01__NumberofIncludedFunctionalGroups.$elementSeparator.
 						$IEA02__InterchangeControlNumber.
-						$segmentTerminator);
-
-		      
-		   }	 
+						$segmentTerminator.$this->_endofline);
+           }	 
 
 	   /** 
 	   * XML To Array Conversion
